@@ -1,0 +1,39 @@
+﻿@model IEnumerable<LeaderBoardMVC.Models.ScoreModel>
+
+@{
+    var rank = 0;
+    ViewBag.Title = "Home Page";
+}
+
+<h1>A Knight's Tale</h1>
+
+<table class="table">
+    <tr>
+        <th>
+            Rank
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Score)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th>
+                @(++rank)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Score)
+            </td>
+        </tr>
+    }
+
+</table>
