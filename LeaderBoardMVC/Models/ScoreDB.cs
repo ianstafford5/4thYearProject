@@ -10,4 +10,9 @@ namespace LeaderBoardMVC.Models
     {
         public DbSet<ScoreModel> Scores { get; set; }
     }
+
+    public class UserDB : DbContext
+    {
+        public DbSet<UserModel> Users { get; set; }
+    }
 }

@@ -11,4 +11,17 @@ namespace LeaderBoardMVC.Models
         public string Name { get; set; }
         public int Score { get; set; }
     }
+
+    public class FormModel
+    {
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public int Score { get; set; }
+    }
+
+    public class UserModel
+    {
+        public int Email { get; set; }
+        public string Password { get; set; }
+    }
 }

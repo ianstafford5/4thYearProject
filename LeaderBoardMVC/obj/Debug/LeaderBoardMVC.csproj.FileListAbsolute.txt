@@ -69,3 +69,11 @@ c:\users\istaf\source\repos\LeaderBoardMVC\LeaderBoardMVC\obj\Debug\LeaderBoardM
 c:\users\istaf\source\repos\LeaderBoardMVC\LeaderBoardMVC\obj\Debug\LeaderBoardMVC.csproj.CoreCompileInputs.cache
 c:\users\istaf\source\repos\LeaderBoardMVC\LeaderBoardMVC\obj\Debug\LeaderBoardMVC.dll
 c:\users\istaf\source\repos\LeaderBoardMVC\LeaderBoardMVC\obj\Debug\LeaderBoardMVC.pdb
+C:\Users\istaf\source\repos\LeaderBoardMVC\LeaderBoardMVC\bin\System.Net.Http.Formatting.dll
+C:\Users\istaf\source\repos\LeaderBoardMVC\LeaderBoardMVC\bin\System.Web.Http.dll
+C:\Users\istaf\source\repos\LeaderBoardMVC\LeaderBoardMVC\bin\System.Web.Http.WebHost.dll
+C:\Users\istaf\source\repos\LeaderBoardMVC\LeaderBoardMVC\bin\System.Net.Http.Formatting.xml
+C:\Users\istaf\source\repos\LeaderBoardMVC\LeaderBoardMVC\bin\System.Web.Http.xml
+C:\Users\istaf\source\repos\LeaderBoardMVC\LeaderBoardMVC\bin\System.Web.Http.WebHost.xml
+C:\Users\istaf\source\repos\LeaderBoardMVC\LeaderBoardMVC\bin\Swashbuckle.Core.dll
+C:\Users\istaf\source\repos\LeaderBoardMVC\LeaderBoardMVC\bin\WebActivatorEx.dll

@@ -13,13 +13,20 @@ namespace LeaderBoardMVC.Controllers
     public class ScoresController : Controller
     {
         private ScoreDB db = new ScoreDB();
+        private UserDB userdb = new UserDB();
+
+        public string MyDictionaryToJson(Dictionary<string, string[]> dict)
+        {
+            var entries = dict.Select(d =>
+                string.Format("{0}: {1}", d.Key, string.Join(",", d.Value[0])));
+            return "{" + string.Join(",", entries) + "}";
+        }
 
         // GET: ScoreModels
         public ActionResult Index()
         {
             var model =
-                from s in db.Scores
-                orderby s.Score descending
+                from s in userdb.Users
                 select s;
 
             return View(model);
