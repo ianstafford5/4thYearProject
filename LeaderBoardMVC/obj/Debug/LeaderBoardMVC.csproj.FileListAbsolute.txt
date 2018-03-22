@@ -77,3 +77,5 @@ C:\Users\istaf\source\repos\LeaderBoardMVC\LeaderBoardMVC\bin\System.Web.Http.xm
 C:\Users\istaf\source\repos\LeaderBoardMVC\LeaderBoardMVC\bin\System.Web.Http.WebHost.xml
 C:\Users\istaf\source\repos\LeaderBoardMVC\LeaderBoardMVC\bin\Swashbuckle.Core.dll
 C:\Users\istaf\source\repos\LeaderBoardMVC\LeaderBoardMVC\bin\WebActivatorEx.dll
+C:\Users\istaf\source\repos\LeaderBoardMVC\LeaderBoardMVC\bin\System.Web.Http.Owin.dll
+C:\Users\istaf\source\repos\LeaderBoardMVC\LeaderBoardMVC\bin\System.Web.Http.Owin.xml

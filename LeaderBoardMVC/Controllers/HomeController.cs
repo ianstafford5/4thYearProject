@@ -53,7 +53,6 @@ namespace LeaderBoardMVC.Controllers
         public ActionResult About(FormModel form)
         {
 
-
             ScoreModel scores = new ScoreModel();
             scores.Name = form.Email;
             scores.Score = form.Score;

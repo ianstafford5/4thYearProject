@@ -1836,6 +1836,16 @@ MonoBehaviour:
   emailResponse: {fileID: 1368270907}
   passwordResponse: {fileID: 1025269473}
   confirmPasswordResponse: {fileID: 1485849204}
+  myFont: {fileID: 12800000, guid: 14fe6a34874c97b4c84c038a12a89a43, type: 3}
+  btnBG: {fileID: 2800000, guid: 0c6049ba9d0d1bd4db6ebebc990c4779, type: 3}
+  hoverBtnBG: {fileID: 2800000, guid: 24e55fb4881b8424b94d2eb9756b8790, type: 3}
+  pressedBtnBG: {fileID: 2800000, guid: 0a26f6a746e286a4ca4195d62d665c48, type: 3}
+  emailToEdit: 
+  passwordToEdit: 
+  confirmPasswordToEdit: 
+  emailError: 
+  passwordError: 
+  confirmPasswordError: 
 --- !u!4 &242951493
 Transform:
   m_ObjectHideFlags: 0
@@ -2886,7 +2896,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &400434848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7114,7 +7124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.77205884, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -8558,7 +8568,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 0.5}
+  m_Color: {r: 0.6764706, g: 0.0099481065, b: 0.0099481065, a: 0.5}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

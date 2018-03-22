@@ -9,22 +9,31 @@ using LeaderBoardMVC.Controllers;
 using System.Diagnostics;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace LeaderBoardMVC.Models
 {
+    [RoutePrefix("unity")]
     // RESTful service
     public class HelloController : ApiController                // is a API Controller
     {
         private ScoreDB db = new ScoreDB();
 
-        // GET /api/Hello/Gary or /api/Hello?name=Gary
+        //GET /api/Hello/Gary or /api/Hello? name = Gary
         [HttpGet]
+        [Route("scores")]
         public IHttpActionResult GetHelloGreeting()               // GET
         {
-           // return Ok("Hello there Ian, welcome to the ASP.Net Web API");      // 200 OK
-            return Ok(db.Scores.OrderByDescending(s => s.Score).ToList());
+            var scores = db.Scores.OrderByDescending(s => s.Score).ToList().Take(10);
+            // return Ok("Hello there Ian, welcome to the ASP.Net Web API");      // 200 OK
+            int key = 1;
+
+            var toDict = scores.Select(s => new { id = "Score"+key++, score = s }).ToDictionary( a => a.id, a => a.score);
+
+            return Ok(toDict);
         }
 
+        [Route("register")]
         [HttpPost]
         public IHttpActionResult Register(RegisterViewModel model)
         {
@@ -45,7 +54,7 @@ namespace LeaderBoardMVC.Models
                     Debug.WriteLine("**************************SUCCESS!!!****************************");
                     return Ok("Success");
                 }
-                
+
 
             }
 
@@ -83,40 +92,25 @@ namespace LeaderBoardMVC.Models
             }
 
             //var errors = new ScoresController().MyDictionaryToJson(errorList);
-            
+
             return Json(errorList);
         }
 
-        public async System.Threading.Tasks.Task<IHttpActionResult> LoginAsync(FormModel form)
+        [HttpPost]
+        [Route("login")]
+        public async System.Threading.Tasks.Task<IHttpActionResult> LoginAsync(LoginViewModel model)
         {
-            LoginViewModel login = new LoginViewModel();
-            login.Email = form.Email;
-            login.Password = form.Password;
-            login.RememberMe = false;
-            AccountController ac = new AccountController();
-            bool valid = await ac.Login(login);
-            if (valid == true)
+            var userManager = Request.GetOwinContext().GetUserManager<ApplicationUserManager>(); ;
+            var user = await userManager.FindAsync(model.Email, model.Password);
+
+            if (user == null)
             {
-                ScoreModel scores = new ScoreModel();
-                scores.Name = form.Email;
-                scores.Score = form.Score;
-                db.Scores.Add(scores);
-                db.SaveChanges();
-                ac.LogOff();
-
-                return Ok("Score added");
+                return BadRequest();
             }
-
-            return BadRequest("Invalid");
-        }
-
-        public IHttpActionResult AddScore()
-        {
-
 
             return Ok();
         }
-
+        
         // return data serialised as XML or JSON or GSON depending on Accept header
         // sample URLs to invoke
         // http://localhost:1107/api/Hello/Gary or http://localhost:1107/api/Hello?name=Gary
