@@ -10,8 +10,6 @@ using System.Text;
 using Assets.Scripts;
 
 public class LoginController : MonoBehaviour {
-    private const int SUCCESS_CODE = 200;
-    //private const int BAD_REQUEST_CODE = 400;
 
     private string LoginURL = "http://localhost:55275/unity/login";
 
@@ -28,31 +26,7 @@ public class LoginController : MonoBehaviour {
     public string passwordToEdit = "";
     public string loginError;
 
-
-    //public static string Encrypt(string input, string key = "sblw-3hn8-sqoy19")
-    //{
-    //    byte[] inputArray = UTF8Encoding.UTF8.GetBytes(input);
-    //    TripleDESCryptoServiceProvider tripleDES = new TripleDESCryptoServiceProvider();
-    //    tripleDES.Key = UTF8Encoding.UTF8.GetBytes(key);
-    //    tripleDES.Mode = CipherMode.ECB;
-    //    tripleDES.Padding = PaddingMode.PKCS7;
-    //    ICryptoTransform cTransform = tripleDES.CreateEncryptor();
-    //    byte[] resultArray = cTransform.TransformFinalBlock(inputArray, 0, inputArray.Length);
-    //    tripleDES.Clear();
-    //    return Convert.ToBase64String(resultArray, 0, resultArray.Length);
-    //}
-    //public static string Decrypt(string input, string key = "sblw-3hn8-sqoy19")
-    //{
-    //    byte[] inputArray = Convert.FromBase64String(input);
-    //    TripleDESCryptoServiceProvider tripleDES = new TripleDESCryptoServiceProvider();
-    //    tripleDES.Key = UTF8Encoding.UTF8.GetBytes(key);
-    //    tripleDES.Mode = CipherMode.ECB;
-    //    tripleDES.Padding = PaddingMode.PKCS7;
-    //    ICryptoTransform cTransform = tripleDES.CreateDecryptor();
-    //    byte[] resultArray = cTransform.TransformFinalBlock(inputArray, 0, inputArray.Length);
-    //    tripleDES.Clear();
-    //    return UTF8Encoding.UTF8.GetString(resultArray);
-    //}
+    public bool loading = true;
 
     // Use this for initialization
     void Start () {
@@ -83,7 +57,7 @@ public class LoginController : MonoBehaviour {
         //string s = i.ToString();
 
         //print(s.GetType());
-        
+      //  GUI.skin.horizontalSlider.;
 
         style.font = myFont;
         style.fontSize = 40;
@@ -110,13 +84,51 @@ public class LoginController : MonoBehaviour {
 
         errorStyle.fontSize = 20;
         errorStyle.fontStyle = FontStyle.Bold;
+        errorStyle.wordWrap = true;
         errorStyle.normal.textColor = new Color32(197, 3, 3, 255);
+
+        loadStyle.normal.background = load;
+        fillStyle.normal.background = progressBarFull;
+        fillTxtStyle.fontSize = 25;
+        fillTxtStyle.normal.textColor = new Color32(255, 156, 49, 255);
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    GUIStyle loadStyle = new GUIStyle();
+    GUIStyle fillStyle = new GUIStyle();
+    GUIStyle fillTxtStyle = new GUIStyle();
+
+    // Update is called once per frame
+    void Update ()
+    {
+       // barDisplay = Convert.ToSingle(progress);
+    }
+
+    float progress;
+    Texture2D progressBarEmpty;
+    public Texture2D progressBarFull;
+    public Texture2D load;
+
+    float barDisplay = 0.5f;
+    string progressText = "0";
+
+    void Loader(int windowID)
+    {
+        GUI.Button(new Rect(90, 93, 310, 52), "",loadStyle);
+
+        GUI.Label(new Rect(150, 40, 300, 100), "LOADING...", style);
+
+        // draw the background:
+        GUI.BeginGroup(new Rect(100, 100, 300, 50));
+
+        GUI.Box(new Rect(0, 0, 290, 36), progressBarEmpty);
+
+        // draw the filled-in part:
+        GUI.BeginGroup(new Rect(0, 0, 290 * barDisplay, 36));
+        GUI.Box(new Rect(0, 0, 290, 36), new GUIContent(""), fillStyle);
+        GUI.Label(new Rect(220, 4, 100, 100), progressText + "%", fillTxtStyle);
+        GUI.EndGroup();
+
+        GUI.EndGroup();
+    }
 
     private IEnumerator Login()
     {
@@ -129,73 +141,49 @@ public class LoginController : MonoBehaviour {
         using (WWW www = new WWW(LoginURL, form))
         {
             //UnityWebRequest www = UnityWebRequest.Post("http://localhost:1107/api/Hello/Ian", form);
-            yield return www;
+            //yield return www;
 
-            int responseCode = GetResponseCode(www);
+            while (!www.isDone)
+            {
+                loading = true;
+                Debug.Log("Progress");
+                progress = Mathf.Clamp01(www.progress / .9f);
+                progressText = (progress*100).ToString();
+                barDisplay = progress;
+                Debug.Log(progressText);
+                yield return null;
+            }
+
+            loading = false;
+            int responseCode = Response.GetResponseCode(www);
             print(responseCode);
 
-            if (responseCode != SUCCESS_CODE)
+            if (responseCode != Response.SUCCESS_CODE)
             {
                 loginError = "The email or password you provided is incorrect";
             }
             else
             {
+                string username = Cryptography.Encrypt(emailToEdit);
+                string password = Cryptography.Encrypt(passwordToEdit);
                 string login = Cryptography.Encrypt("true");
                 print(login);
+
+                PlayerPrefs.SetString("Username", username);
+                PlayerPrefs.SetString("Password", password);
                 PlayerPrefs.SetString("Login", login);
                 SceneManager.LoadScene(0);
             }
         }
-
     }
-
-    public static int GetResponseCode(WWW request)
-    {
-        int ret = 0;
-
-        if (request.responseHeaders == null)
-        {
-            Debug.Log("No Response Headers");
-        }
-        else
-        {
-            if (!request.responseHeaders.ContainsKey("STATUS"))
-            {
-                Debug.Log("Response Headers has no status");
-            }
-            else
-            {
-                ret = ParseResponseCode(request.responseHeaders["STATUS"]);
-            }
-        }
-
-        return ret;
-    }
-
-
-    public static int ParseResponseCode(string statusLine)
-    {
-        int ret = 0;
-
-        string[] components = statusLine.Split(' ');
-        if (components.Length < 3)
-        {
-            Debug.Log("Invalid Response Status: " + components[1]);
-        }
-        else
-        {
-            if (!int.TryParse(components[1], out ret))
-            {
-                Debug.Log("Invalid Respnse Code: " + components[1]);
-            }
-        }
-
-        return ret;
-    }
-
 
     private void OnGUI()
     {
+
+        if (loading)
+        {
+            GUI.ModalWindow(1, new Rect(Screen.width / 2 - 260, Screen.height / 2 - 230, 500, 250), Loader, "");
+        }
 
         GUI.BeginGroup(new Rect(Screen.width / 2 - 400, Screen.height / 2 - 300, 800, 600));
         GUI.Box(new Rect(0, 0, 800, 600), "");
@@ -204,20 +192,20 @@ public class LoginController : MonoBehaviour {
         GUI.skin.textField.fontSize = 25;
         GUI.skin.textField.alignment = TextAnchor.MiddleLeft;
 
-        GUI.Label(new Rect(250, 180, 300, 100), loginError, errorStyle);
+        GUI.Label(new Rect(250, 60, 300, 100), loginError, errorStyle);
 
         GUI.Label(new Rect(250, 120, 255, 52), "Email:", labelStyle);
-        emailToEdit = GUI.TextField(new Rect(250, 150, 300, 30), emailToEdit, 25);
+        emailToEdit = GUI.TextField(new Rect(250, 150, 300, 32), emailToEdit, 25);
         if (emailToEdit.Length == 0 || emailToEdit.Equals(null))
         {
-            GUI.Label(new Rect(254, 150, 255, 52), "Enter email address...", placeholderStyle);
+            GUI.Label(new Rect(256, 150, 255, 52), "Enter email address...", placeholderStyle);
         }
 
         GUI.Label(new Rect(250, 220, 255, 52), "Password:", labelStyle);
-        passwordToEdit = GUI.PasswordField(new Rect(250, 250, 300, 30), passwordToEdit, '*', 25);
+        passwordToEdit = GUI.PasswordField(new Rect(250, 250, 300, 32), passwordToEdit, '*', 25);
         if (passwordToEdit.Length == 0 || passwordToEdit.Equals(null))
         {
-            GUI.Label(new Rect(254, 250, 255, 52), "Enter password...", placeholderStyle);
+            GUI.Label(new Rect(256, 250, 255, 52), "Enter password...", placeholderStyle);
         }        
 
         if (GUI.Button(new Rect(100, 460, 220, 70), "Back", buttonStyle))
@@ -230,6 +218,7 @@ public class LoginController : MonoBehaviour {
             StartCoroutine(Login());
         }
 
+        
 
         GUI.EndGroup();
     }

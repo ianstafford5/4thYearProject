@@ -64,50 +64,64 @@ public class LeaderBoard : MonoBehaviour {
         public Scores Score9;
         public Scores Score10;
     }
-
+    bool loading = false;
     public IEnumerator Score()
     {
         Debug.Log("********SEND1******");
-        WWW www = new WWW(ScoreURL);
+        using (WWW www = new WWW(ScoreURL))
+        {
+            while (!www.isDone)
+            {
+                loading = true;
+                Debug.Log("Loading");
+                //progress = Mathf.Clamp01(www.progress / .9f);
+                //progressText = (progress * 100).ToString();
+                //barDisplay = progress;
+                //Debug.Log(progressText);
+                yield return null;
+            }
 
-        yield return www;
+            Debug.Log("Finished Loading");
+            loading = false;
+            yield return www;
 
-        string response = www.text;
+            string response = www.text;
 
-        ScoreData info = JsonUtility.FromJson<ScoreData>(www.text);
+            ScoreData info = JsonUtility.FromJson<ScoreData>(www.text);
 
-        name1 = info.Score1.Name;
-        score1 = info.Score1.Score.ToString();
+            name1 = info.Score1.Name;
+            score1 = info.Score1.Score.ToString();
 
-        name2 = info.Score2.Name;
-        score2 = info.Score2.Score.ToString();
+            name2 = info.Score2.Name;
+            score2 = info.Score2.Score.ToString();
 
-        name3 = info.Score3.Name;
-        score3 = info.Score3.Score.ToString();
+            name3 = info.Score3.Name;
+            score3 = info.Score3.Score.ToString();
 
-        name4 = info.Score4.Name;
-        score4 = info.Score4.Score.ToString();
+            name4 = info.Score4.Name;
+            score4 = info.Score4.Score.ToString();
 
-        name5 = info.Score5.Name;
-        score5 = info.Score5.Score.ToString();
+            name5 = info.Score5.Name;
+            score5 = info.Score5.Score.ToString();
 
-        name6 = info.Score6.Name;
-        score6 = info.Score6.Score.ToString();
+            name6 = info.Score6.Name;
+            score6 = info.Score6.Score.ToString();
 
-        name7 = info.Score7.Name;
-        score7 = info.Score7.Score.ToString();
+            name7 = info.Score7.Name;
+            score7 = info.Score7.Score.ToString();
 
-        name8 = info.Score8.Name;
-        score8 = info.Score8.Score.ToString();
+            name8 = info.Score8.Name;
+            score8 = info.Score8.Score.ToString();
 
-        name9 = info.Score9.Name;
-        score9 = info.Score9.Score.ToString();
+            name9 = info.Score9.Name;
+            score9 = info.Score9.Score.ToString();
 
-        name10 = info.Score10.Name;
-        score10 = info.Score10.Score.ToString();
+            name10 = info.Score10.Name;
+            score10 = info.Score10.Score.ToString();
 
 
-        running = true;
+            running = true;
+        }
     }
     
     // Use this for initialization

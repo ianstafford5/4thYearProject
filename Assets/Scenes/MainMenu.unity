@@ -878,7 +878,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 763247347}
+      - m_Target: {fileID: 0}
         m_MethodName: SendScore
         m_Mode: 1
         m_Arguments:
@@ -3324,7 +3324,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 763247347}
+      - m_Target: {fileID: 0}
         m_MethodName: Register
         m_Mode: 1
         m_Arguments:
@@ -6208,8 +6208,8 @@ GameObject:
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 763247346}
   - component: {fileID: 763247347}
+  - component: {fileID: 763247346}
   m_Layer: 5
   m_Name: ButtonManager
   m_TagString: Untagged
@@ -6217,25 +6217,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &763247346
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 763247345}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -235.49994, y: 435.3}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &763247347
+--- !u!114 &763247346
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -6247,14 +6229,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myFont: {fileID: 12800000, guid: 14fe6a34874c97b4c84c038a12a89a43, type: 3}
+  modalFont: {fileID: 12800000, guid: fd2b3d4ade6baf24eb4a33e90ecf67be, type: 3}
   btnBG: {fileID: 2800000, guid: 0c6049ba9d0d1bd4db6ebebc990c4779, type: 3}
   hoverBtnBG: {fileID: 2800000, guid: 24e55fb4881b8424b94d2eb9756b8790, type: 3}
   pressedBtnBG: {fileID: 2800000, guid: 0a26f6a746e286a4ca4195d62d665c48, type: 3}
-  username: JOE
-  email: user2@gmail.com
-  password: Password@1
-  confirmPassword: Password@1
-  score: 200
+  box: {fileID: 2800000, guid: bd3f79a30569ab647ad1c84b5f2790e0, type: 3}
+  username: 
+  email: 
+  password: 
+  confirmPassword: 
+  score: 
+--- !u!4 &763247347
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 763247345}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -235.49994, y: 435.3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &763454989
 Prefab:
   m_ObjectHideFlags: 0
@@ -7257,7 +7254,7 @@ RectTransform:
   - {fileID: 135445791}
   - {fileID: 390376371}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -8284,7 +8281,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 763247347}
+      - m_Target: {fileID: 0}
         m_MethodName: ExitGameBtn
         m_Mode: 1
         m_Arguments:
@@ -8834,7 +8831,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 0, g: 0, b: 0, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_PressedColor: {r: 0.74264705, g: 0, b: 0, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -8852,7 +8849,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 763247347}
+      - m_Target: {fileID: 0}
         m_MethodName: NewGame
         m_Mode: 1
         m_Arguments:
